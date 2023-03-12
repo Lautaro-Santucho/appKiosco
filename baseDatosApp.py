@@ -1,6 +1,9 @@
 import sqlite3
 from tkinter import messagebox
+import tkinter as tk
 
+
+#-------------------Base de datos de CRUD de articulos-------------------
 class CRUD:
     def abrir(self):
         conexion= sqlite3.connect("Base de datos")
@@ -22,15 +25,15 @@ class CRUD:
         except:
             messagebox.showwarning("!Advertencia¡", "La base de datos ya existe")
 
-'''    def agregar(self, datos):
+    def agregar(self, datos):
         conexion= self.abrir()
         cursor= conexion.cursor()
-        instruction= "INSERT INTO jugadores VALUES (%s, %s, %s, %s, %s)"
+        instruction= "INSERT INTO jugadores VALUES (NULL, ?, ?, ?, ?)"
         cursor.execute(instruction, datos)
         conexion.commit()
         conexion.close()
 
-    def borrar(self, datos):
+'''    def borrar(self, datos):
         conexion= self.abrir()
         cursor= conexion.cursor()
         instrction= "DELETE FROM jugadores WHERE CODIGO= %s"
@@ -69,3 +72,11 @@ class CRUD:
         cursor.execute(instruction)
         conexion.close
         return cursor.fetchall()'''
+
+
+#-------------------Base de datos de CRUD de proveedores-------------------
+class Proveedores:
+    def ventanaProveedores(self):
+        self.ventProv= tk.Toplevel()
+        self.ventProv.title("Ventana de proveedores")
+        self.ventProv.geometry("720x480")

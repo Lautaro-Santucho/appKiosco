@@ -10,6 +10,7 @@ class Interfaz:
         self.vent.title("Base de datos de Seleccion Argentina")
         self.vent.geometry("1024x720")
         self.Database = baseDatosApp.CRUD()
+        self.Provee= baseDatosApp.Proveedores()
         self.notebook = ttk.Notebook(self.vent)
 #        self.notebook.grid(column=0, row=1, padx=10, pady=10)
         self.notebook.place(x= 0, y=260)
@@ -19,7 +20,7 @@ class Interfaz:
         self.actualizarJugadores()
         self.imprimirJugadores()
         self.treeview()
-        self.conectarBaseDeDatos()
+        self.barraSuperior()
 #        self.listarSelecc()
 
         self.vent.mainloop()
@@ -46,7 +47,19 @@ class Interfaz:
         self.scrollbar = ttk.Scrollbar(self.treeview, orient="vertical", command=self.treeview.yview())
         self.treeview["yscrollcommand"] = self.scrollbar.set
 
-#-------------------Interfaz grafica del CRUD-------------------
+#-------------------Interfaz grafica del CRUD de articulos-------------------
+    def barraSuperior(self):
+        barraMenu= tk.Menu(self.vent)
+        self.vent.config(menu=barraMenu)
+        conexionMenu= tk.Menu(barraMenu, tearoff=0)
+        conexionMenu.add_command(label="Conexion", command=self.Database.abrir)
+
+        proveedorMenu= tk.Menu(barraMenu, tearoff=0)
+        proveedorMenu.add_command(label="Proveedor", command=self.Provee.ventanaProveedores)
+
+        barraMenu.add_cascade(label="Conectar", menu=conexionMenu)
+        barraMenu.add_cascade(label="Proveedores", menu=proveedorMenu)
+
     def agregarJugadores(self):
         self.page1 = ttk.Frame(self.notebook)
         self.notebook.add(self.page1, text="Ingresar jugador")
@@ -146,12 +159,8 @@ class Interfaz:
         self.ScrollBar = ttk.Scrollbar(self.scrolledtext, orient='vertical', command=self.scrolledtext.yview)
         self.scrolledtext["yscrollcommand"] = self.ScrollBar.set
 
-    def conectarBaseDeDatos(self):
-        barraMenu= tk.Menu(self.vent)
-        self.vent.config(menu=barraMenu)
-        opciones= tk.Menu(barraMenu, tearoff=0)
-        opciones.add_command(label="Conexion", command=self.Database.abrir)
-        barraMenu.add_cascade(label="Conectar", menu=opciones)
+
+
 
 '''    # Pasaje de datos para instrucciones SQL
     def listarSelecc(self):
