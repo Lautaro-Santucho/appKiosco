@@ -1,5 +1,4 @@
 import tkinter as tk
-from tkinter import messagebox
 from tkinter import ttk
 from tkinter import scrolledtext as st
 import baseDatosApp
@@ -9,40 +8,28 @@ class Interfaz:
     def __init__(self):
         self.vent = tk.Tk()
         self.vent.title("Base de datos de Seleccion Argentina")
-        self.vent.geometry("600x400")
-        self.Database = baseDatosApp.Selecc()
+        self.vent.geometry("1024x720")
+        self.Database = baseDatosApp.CRUD()
         self.notebook = ttk.Notebook(self.vent)
-        self.notebook.grid(column=0, row=0, padx=10, pady=10)
-
-        """#Treeview
-        self.treeview = ttk.Treeview(self.vent, columns=("codigo", "DNI", "nombre", "apellido", "NCamiseta"))
-        self.treeview.grid(column=1, row=0)
-
-        self.treeview.column("#0", width=80)
-        self.treeview.column("#1", width=80)
-        self.treeview.column("#2", width=80)
-        self.treeview.column("#3", width=80)
-        self.treeview.column("#4", width=80)
-
-        self.treeview.heading("#0", text="codigo")
-        self.treeview.heading("#1", text="DNI")
-        self.treeview.heading("#2", text="nombre")
-        self.treeview.heading("#3", text="apellido")
-        self.treeview.heading("#4", text="NCamiseta")"""
-
+#        self.notebook.grid(column=0, row=1, padx=10, pady=10)
+        self.notebook.place(x= 0, y=260)
+    
         self.agregarJugadores()
         self.borrarJugadores()
         self.actualizarJugadores()
         self.imprimirJugadores()
         self.treeview()
-        self.listarSelecc()
+        self.conectarBaseDeDatos()
+#        self.listarSelecc()
 
         self.vent.mainloop()
 
+#Ventana de visualizacion de datos
     def treeview(self):
         # Treeview
         self.treeview = ttk.Treeview(self.vent, columns=("DNI", "nombre", "apellido", "NCamiseta"))
-        self.treeview.grid(column=1, row=0)
+        self.treeview.grid(column=0, row=0)
+        self.treeview.place(width=1024)
 
         self.treeview.column("#0", width=80)
         self.treeview.column("#1", width=80)
@@ -59,6 +46,7 @@ class Interfaz:
         self.scrollbar = ttk.Scrollbar(self.treeview, orient="vertical", command=self.treeview.yview())
         self.treeview["yscrollcommand"] = self.scrollbar.set
 
+#-------------------Interfaz grafica del CRUD-------------------
     def agregarJugadores(self):
         self.page1 = ttk.Frame(self.notebook)
         self.notebook.add(self.page1, text="Ingresar jugador")
@@ -92,7 +80,7 @@ class Interfaz:
         self.entry5 = ttk.Entry(self.labelframe1, textvariable=self.datoNCamiseta)
         self.entry5.grid(column=1, row=4, padx=10, pady=10)
         # Button
-        self.button = ttk.Button(self.labelframe1, text="Ingresar", command=self.agregarSelecc)
+        self.button = ttk.Button(self.labelframe1, text="Ingresar")#, command=self.agregarSelecc)
         self.button.grid(column=1, row=5, padx=10, pady=10)
 
     def borrarJugadores(self):
@@ -104,7 +92,7 @@ class Interfaz:
         self.label = ttk.Label(self.labelframe1, text="Selecciones un jugador para borrar")
         self.label.grid(column=0, row=0, padx=10, pady=10)
         # Button
-        self.button = ttk.Button(self.labelframe1, text="Borrar", command=self.borrarSelecc)
+        self.button = ttk.Button(self.labelframe1, text="Borrar")#, command=self.borrarSelecc)
         self.button.grid(column=0, row=1, padx=10, pady=10)
 
     def actualizarJugadores(self):
@@ -140,9 +128,9 @@ class Interfaz:
         self.entry5 = ttk.Entry(self.labelframe1, textvariable=self.datoNCamiseta2)
         self.entry5.grid(column=1, row=4, padx=10, pady=10)
         # Button
-        self.button = ttk.Button(self.labelframe1, text="Actualizar", command=self.actualizarSelecc)
+        self.button = ttk.Button(self.labelframe1, text="Actualizar")#, command=self.actualizarSelecc)
         self.button.grid(column=1, row=5, padx=10, pady=10)
-        self.button1 = ttk.Button(self.labelframe1, text="consultar", command=self.consultarSelecc)
+        self.button1 = ttk.Button(self.labelframe1, text="consultar")#, command=self.consultarSelecc)
         self.button1.grid(column=0, row=5, padx=10, pady=10)
 
     def imprimirJugadores(self):
@@ -152,13 +140,20 @@ class Interfaz:
         self.scrolledtext = st.ScrolledText(self.page4, width=90)
         self.scrolledtext.grid(column=0, row=0, pady=0, padx=0)
         # Button
-        self.boton = ttk.Button(self.page4, text="Imprimir", command=self.imprimirSelecc)
+        self.boton = ttk.Button(self.page4, text="Imprimir")#, command=self.imprimirSelecc)
         self.boton.grid(column=0, row=1, padx=10, pady=10)
         # ScrollBar
         self.ScrollBar = ttk.Scrollbar(self.scrolledtext, orient='vertical', command=self.scrolledtext.yview)
         self.scrolledtext["yscrollcommand"] = self.ScrollBar.set
 
-    # Pasaje de datos para instrucciones SQL
+    def conectarBaseDeDatos(self):
+        barraMenu= tk.Menu(self.vent)
+        self.vent.config(menu=barraMenu)
+        opciones= tk.Menu(barraMenu, tearoff=0)
+        opciones.add_command(label="Conexion", command=self.Database.abrir)
+        barraMenu.add_cascade(label="Conectar", menu=opciones)
+
+'''    # Pasaje de datos para instrucciones SQL
     def listarSelecc(self):
         self.registros = self.treeview.get_children()
         for elementos in self.registros:
@@ -210,6 +205,6 @@ class Interfaz:
                                      ",Nombre: " + str(jugadores[2]) + ",Apellido: " + str(jugadores[3]) +
                                      ",Numero de camiseta: " + str(jugadores[4]) +
                                      "\n--------------------------------------------------------------------------\n")
-
+'''
 
 inter = Interfaz()

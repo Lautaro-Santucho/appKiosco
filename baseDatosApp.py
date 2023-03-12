@@ -1,23 +1,28 @@
-import mysql.connector
+import sqlite3
+from tkinter import messagebox
 
-
-
-'''conexion= mysql.connector.connect(host= "localhost", user= "root", passwd= "", database= "Seleccion")
-cursor= conexion.cursor()
-cursor.execute("""CREATE TABLE JUGADORES(
-                    CODIGO INT,
-                    DNI INT(8),
-                    NOMBRE VARCHAR (50),
-                    APELLIDO VARCHAR (50),
-                    N_CAMISETA INT(2));""")'''
-
-class Selecc:
+class CRUD:
     def abrir(self):
-        conexion= mysql.connector.connect(host= "localhost", user= "root", passwd= "", database= "Seleccion")
+        conexion= sqlite3.connect("Base de datos")
+        cursor= conexion.cursor()
 
-        return conexion
+        try:
+            cursor.execute("""CREATE TABLE ARTICULOS(
+                                ID INTEGER PRIMARY KEY AUTOINCREMENT,
+                                NOMBRE VARCHAR (50),
+                                SECCION VARCHAR (50),
+                                PROVEEDOR VARCHAR (50),
+                                PRECIO INTEGER);""")
 
-    def agregar(self, datos):
+            cursor.execute("""CREATE TABLE PROVEEDORES(
+                                ID INTEGER PRIMARY KEY AUTOINCREMENT,
+                                NOMBRE VARCHAR (50));""")
+            messagebox.showinfo("Base de datos", "La base de datos se ha creado con exito")
+            
+        except:
+            messagebox.showwarning("!Advertencia¡", "La base de datos ya existe")
+
+'''    def agregar(self, datos):
         conexion= self.abrir()
         cursor= conexion.cursor()
         instruction= "INSERT INTO jugadores VALUES (%s, %s, %s, %s, %s)"
@@ -63,4 +68,4 @@ class Selecc:
         instruction= "SELECT * FROM JUGADORES ORDER BY CODIGO ASC"
         cursor.execute(instruction)
         conexion.close
-        return cursor.fetchall()
+        return cursor.fetchall()'''
