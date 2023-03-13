@@ -1,6 +1,7 @@
 import sqlite3
 from tkinter import messagebox
 import tkinter as tk
+from tkinter import ttk
 
 
 #-------------------Base de datos de CRUD de articulos-------------------
@@ -75,8 +76,3 @@ class CRUD:
 
 
 #-------------------Base de datos de CRUD de proveedores-------------------
-class Proveedores:
-    def ventanaProveedores(self):
-        self.ventProv= tk.Toplevel()
-        self.ventProv.title("Ventana de proveedores")
-        self.ventProv.geometry("720x480")
