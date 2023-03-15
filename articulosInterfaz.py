@@ -3,23 +3,23 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import scrolledtext as st
 
+
 class articulosInterfaz:
+    #poner ventana main
     def ventanaArticulo(self):
         self.ventProv= tk.Toplevel()
-        self.ventProv.title("Ventana de proveedores")
+        self.ventProv.title("Ventana de productos")
         self.ventProv.geometry("940x680")
 
-        
-        self.treeview()
+        self.__call__()
         self.agregarProductos()
         self.botonesCRUD()
         self.lista()
-#        self.imprimirProductos()
 
         self.ventProv.mainloop()
 
     
-    def treeview(self):
+    def __call__(self):
         # Treeview
         self.treeview = ttk.Treeview(self.ventProv, columns=("Descripcion", "Costo", "Precio", "Stock"))
         self.treeview.grid(column=0, row=0)
@@ -64,27 +64,27 @@ class articulosInterfaz:
         self.label13 = ttk.Label(self.labelframe1, text="Neto").place(x=385, y=208)
 
         # Entry
-        self.datoGrupo = tk.IntVar()
+        self.datoGrupo = tk.StringVar()
         self.entry1 = ttk.Entry(self.labelframe1, textvariable=self.datoGrupo).place(x=110, y=13, width=100, height=25)
-        self.datoCodigoProd = tk.IntVar()
+        self.datoCodigoProd = tk.StringVar()
         self.entry2 = ttk.Entry(self.labelframe1, textvariable=self.datoCodigoProd).place(x=110, y=53, width=100, height=25)
         self.datoDescripcion = tk.StringVar()
         self.entry3 = ttk.Entry(self.labelframe1, textvariable=self.datoDescripcion).place(x=110, y=93, width=250, height=25)
-        self.datoFechaAlta = tk.IntVar()
+        self.datoFechaAlta = tk.StringVar()
         self.entry4 = ttk.Entry(self.labelframe1, textvariable=self.datoFechaAlta).place(x=110, y=133, width=100, height=25)
-        self.datoProveedor = tk.IntVar()
+        self.datoProveedor = tk.StringVar()
         self.entry5 = ttk.Entry(self.labelframe1, textvariable=self.datoProveedor).place(x=110, y=173, width=100, height=25)
-        self.datoStock = tk.IntVar()
+        self.datoStock = tk.StringVar()
         self.entry6 = ttk.Entry(self.labelframe1, textvariable=self.datoStock).place(x=110, y=213, width=100, height=25)
-        self.datoUbiFisica = tk.IntVar()
+        self.datoUbiFisica = tk.StringVar()
         self.entry7 = ttk.Entry(self.labelframe1, textvariable=self.datoUbiFisica).place(x=110, y=253, width=100, height=25)
-        self.datoCantBultos = tk.IntVar()
+        self.datoCantBultos = tk.StringVar()
         self.entry8 = ttk.Entry(self.labelframe1, textvariable=self.datoCantBultos).place(x=110, y=293, width=100, height=25)
-        self.datoIVA = tk.IntVar()
+        self.datoIVA = tk.StringVar()
         self.entry9 = ttk.Entry(self.labelframe1, textvariable=self.datoIVA).place(x=420, y=253, width=100, height=25)
-        self.datoCosto = tk.IntVar()
+        self.datoCosto = tk.StringVar()
         self.entry10 = ttk.Entry(self.labelframe1, textvariable=self.datoCosto).place(x=275, y=293, width=100, height=25)
-        self.datoDesc = tk.IntVar()
+        self.datoDesc = tk.StringVar()
         self.entry11 = ttk.Entry(self.labelframe1, textvariable=self.datoDesc).place(x=420, y=293, width=100, height=25)
       
 
@@ -144,3 +144,4 @@ class articulosInterfaz:
         self.entry9 = ttk.Entry(self.labelframe1, textvariable=self.datoFechaAlta).place(x=110, y=150, width=50)
         self.datoProveedor = tk.StringVar()
         self.entry10 = ttk.Entry(self.labelframe1, textvariable=self.datoProveedor).place(x=110, y=190, width=50)
+
