@@ -2,6 +2,7 @@ from tkinter import messagebox
 import tkinter as tk
 from tkinter import ttk
 from tkinter import scrolledtext as st
+import baseDatosApp
 
 
 class articulosInterfaz:
@@ -10,6 +11,7 @@ class articulosInterfaz:
         self.ventProv= tk.Toplevel()
         self.ventProv.title("Ventana de productos")
         self.ventProv.geometry("940x680")
+        self.DataBase= baseDatosApp.CRUDarticulos
 
         self.__call__()
         self.agregarProductos()
@@ -105,8 +107,9 @@ class articulosInterfaz:
         self.button1 = ttk.Button(self.labelframe1, text="Agregar", width=20).grid(column=0, row=0, padx=10, pady=10)
         self.button2 = ttk.Button(self.labelframe1, text="Modificar", width=20).grid(column=1, row=0, padx=10, pady=10)
         self.button3 = ttk.Button(self.labelframe1, text="Eliminar", width=20).grid(column=2, row=0, padx=10, pady=10)
-        self.button4 = ttk.Button(self.labelframe1, text="Cancelar", width=20).grid(column=4, row=0, padx=10, pady=10)
+        self.button4 = ttk.Button(self.labelframe1, text="Cancelar", width=20, command=self.cancelar).grid(column=4, row=0, padx=10, pady=10)
         self.button5 = ttk.Button(self.labelframe1, text="Grabar", width=20).grid(column=5, row=0, padx=10, pady=10)
+
 #---------------------fin visualizar datos---------------------        
         
     def lista(self):
@@ -144,4 +147,34 @@ class articulosInterfaz:
         self.entry9 = ttk.Entry(self.labelframe1, textvariable=self.datoFechaAlta).place(x=110, y=150, width=50)
         self.datoProveedor = tk.StringVar()
         self.entry10 = ttk.Entry(self.labelframe1, textvariable=self.datoProveedor).place(x=110, y=190, width=50)
+
+
+
+    # Pasaje de datos para instrucciones SQL
+    def listarProductos(self):
+        self.registros = self.treeview.get_children()
+        for elementos in self.registros:
+            self.treeview.delete(elementos)
+        for fila in self.DataBase.listar():
+            self.treeview.insert("", 0, text=fila[0], values=(fila[1], fila[2], fila[3], fila[4]))
+
+    '''def agregarProductos(self):
+        datos = (self.datoGrupo.get(), self.datoCodigoProd.get(), self.datoDescripcion.get(), 
+                 self.datoFechaAlta.get(),self.datoStock.get(),self.datoUbiFisica.get(),
+                 self.datoCantBultos.get(),self.datoIVA.get(),self.datoCosto.get(),
+                 self.datoDesc.get())
+        self.DataBase.agregar(datos)
+        self.datoGrupo.set("")
+        self.datoCodigoProd.set("")
+        self.datoDescripcion.set("")
+        self.datoFechaAlta.set("")
+        self.datoStock.set("")
+        self.datoUbiFisica.set("")
+        self.datoCantBultos.set("")
+        self.datoIVA.set("")
+        self.datoCosto.set("")
+        self.datoDesc.set("")
+
+
+        self.listarSelecc()'''
 

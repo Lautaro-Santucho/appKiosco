@@ -11,10 +11,9 @@ class Interfaz:
         self.vent = tk.Tk()
         self.vent.title("Base de datos de Seleccion Argentina")
         self.vent.geometry("1024x720")
-        self.Database = baseDatosApp.CRUD()
+        self.Database = baseDatosApp.CRUDarticulos()
         self.Provee= proveedoresInterfaz.proveedoresInterfaz()
         self.Artic= articulosInterfaz.articulosInterfaz()
-        Database= baseDatosApp.CRUD()
 
         self.barraSuperior()
 

@@ -5,7 +5,8 @@ from tkinter import ttk
 
 
 #-------------------Base de datos de CRUD de articulos-------------------
-class CRUD:
+
+class CRUDarticulos:
     def abrir(self):
         conexion= sqlite3.connect("Base de datos")
         cursor= conexion.cursor()
@@ -13,14 +14,15 @@ class CRUD:
         try:
             cursor.execute("""CREATE TABLE ARTICULOS(
                                 ID INTEGER PRIMARY KEY AUTOINCREMENT,
-                                NOMBRE VARCHAR (50),
-                                SECCION VARCHAR (50),
-                                PROVEEDOR VARCHAR (50),
-                                PRECIO INTEGER);""")
-
-            cursor.execute("""CREATE TABLE PROVEEDORES(
-                                ID INTEGER PRIMARY KEY AUTOINCREMENT,
-                                NOMBRE VARCHAR (50));""")
+                                GRUPO INTEGER,
+                                CODIGO INTEGER,
+                                DESCRIPCION VARCHAR (100),
+                                FECHA_ALTA VARCHAR (11),
+                                STOCK INTEGER,
+                                UBICACION_FISICA INTEGER,
+                                CANT_BULTOS INTEGER,
+                                COSTO INTEGER);""")
+            
             messagebox.showinfo("Base de datos", "La base de datos se ha creado con exito")
             
         except:
@@ -34,6 +36,14 @@ class CRUD:
         conexion.commit()
         conexion.close()
 
+    def listar(self):
+            conexion= self.abrir()
+            cursor= conexion.cursor()
+            instrction= "SELECT * FROM jugadores ORDER BY CODIGO"
+            cursor.execute(instrction)
+            conexion.close()
+            return cursor.fetchall()
+    
 '''    def borrar(self, datos):
         conexion= self.abrir()
         cursor= conexion.cursor()
@@ -42,13 +52,7 @@ class CRUD:
         conexion.commit()
         conexion.close()
 
-    def listar(self):
-        conexion= self.abrir()
-        cursor= conexion.cursor()
-        instrction= "SELECT * FROM jugadores ORDER BY CODIGO"
-        cursor.execute(instrction)
-        conexion.close()
-        return cursor.fetchall()
+    
 
     def consultar(self, datos):
         conexion= self.abrir()
