@@ -8,22 +8,20 @@ class proveedoresInterfaz:
         self.ventProv= tk.Toplevel()
         self.ventProv.title("Ventana de proveedores")
         self.ventProv.geometry("940x680")
-        self.notebook = ttk.Notebook(self.ventProv)
-#        self.notebook.grid(column=0, row=1, padx=10, pady=10)
-        self.notebook.place(x= 0, y=260)
         
-        self.treeview()
-        self.agregarJugadores()
-        self.borrarJugadores()
-        self.actualizarJugadores()
-        self.imprimirJugadores()
+        self.__call__()
+        self.buscador()
+#        self.agregarJugadores()
+#        self.borrarJugadores()
+#        self.actualizarJugadores()
+#        self.imprimirJugadores()
 
     
-    def treeview(self):
+    def __call__(self):
         # Treeview
         self.treeview = ttk.Treeview(self.ventProv, columns=("DNI", "nombre", "apellido", "NCamiseta"))
         self.treeview.grid(column=0, row=0)
-        self.treeview.place(width=940)
+        self.treeview.place(width=520, height=150)
 
         self.treeview.column("#0", width=80)
         self.treeview.column("#1", width=80)
@@ -138,5 +136,21 @@ class proveedoresInterfaz:
         # ScrollBar
         self.ScrollBar = ttk.Scrollbar(self.scrolledtext, orient='vertical', command=self.scrolledtext.yview)
         self.scrolledtext["yscrollcommand"] = self.ScrollBar.set
+
+#---------------------Crear buscador---------------------  
+
+    def buscador(self):
+        self.labelframe1= ttk.Labelframe(self.ventProv, text="Buscar Datos")
+        self.labelframe1.place(x=530, y=0, width=350, height=150)
+        self.seleccion= tk.IntVar()
+        self.radioButton1= ttk.Radiobutton(self.ventProv, text="Por Codigo", value=1).place(x=545, y=20)
+        self.radioButton2= ttk.Radiobutton(self.ventProv, text="Por Nombre", value=2).place(x=545, y=50)
+        #Entry
+        self.datoBuscador = tk.StringVar()
+        self.entry10 = ttk.Entry(self.labelframe1, textvariable=self.datoBuscador).place(x=23, y=70, width=300, height=35)
+        #Button
+        self.button = ttk.Button(self.labelframe1, text="Buscar", width=20).place(x=115, y=10, width=220, height=35)
+
+#---------------------Fin crear buscador---------------------  
 
         self.ventProv.mainloop()
