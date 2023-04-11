@@ -97,7 +97,9 @@ class articulosInterfaz:
         self.datoNeto = tk.StringVar()
         self.entry14 = ttk.Entry(self.labelframe1, textvariable=self.datoNeto).place(x=425, y=208, width=50)
 
+#---------------------fin visualizar datos---------------------  
 
+#---------------------Inicio botones CRUD---------------------  
 
     def botonesCRUD(self):
         self.labelframe1= ttk.Labelframe(self.ventProv, text="Opciones")
@@ -110,43 +112,47 @@ class articulosInterfaz:
         self.button4 = ttk.Button(self.labelframe1, text="Cancelar", width=20).grid(column=4, row=0, padx=10, pady=10)
         self.button5 = ttk.Button(self.labelframe1, text="Grabar", width=20).grid(column=5, row=0, padx=10, pady=10)
 
-#---------------------fin visualizar datos---------------------        
+#---------------------Fin botones CRUD---------------------
+
+#---------------------Inicio lista---------------------
         
     def lista(self):
         self.labelframe1= ttk.Labelframe(self.ventProv, text="Lista de productos")
         self.labelframe1.place(x=700, y=300, width=220, height=300)
         #Labels
-        self.label1 = ttk.Label(self.labelframe1, text="Lista 1").place(x=0, y=30)
-        self.label2 = ttk.Label(self.labelframe1, text="Lista 2").place(x=0, y=70)
-        self.label3 = ttk.Label(self.labelframe1, text="Lista 3").place(x=0, y=110)
-        self.label4 = ttk.Label(self.labelframe1, text="Lista 4").place(x=0, y=150)
-        self.label5 = ttk.Label(self.labelframe1, text="Lista 5").place(x=0, y=190)
+        self.label1 = ttk.Label(self.labelframe1, text="Lista 1").place(x=25, y=30)
+        self.label2 = ttk.Label(self.labelframe1, text="Lista 2").place(x=25, y=70)
+        self.label3 = ttk.Label(self.labelframe1, text="Lista 3").place(x=25, y=110)
+        self.label4 = ttk.Label(self.labelframe1, text="Lista 4").place(x=25, y=150)
+        self.label5 = ttk.Label(self.labelframe1, text="Lista 5").place(x=25, y=190)
 
-        self.label6 = ttk.Label(self.labelframe1, text="Utilidad").place(x=50, y=0)
-        self.label7 = ttk.Label(self.labelframe1, text="Precio").place(x=110, y=0)
+        self.label6 = ttk.Label(self.labelframe1, text="Utilidad").place(x=70, y=0)
+        self.label7 = ttk.Label(self.labelframe1, text="Precio").place(x=130, y=0)
 
         #Entry
         self.datoGrupo = tk.StringVar()
-        self.entry1 = ttk.Entry(self.labelframe1, textvariable=self.datoGrupo, width=20).place(x=50, y=30, width=50)
+        self.entry1 = ttk.Entry(self.labelframe1, textvariable=self.datoGrupo, width=20).place(x=70, y=30, width=50)
         self.datoCodigoProd = tk.StringVar()
-        self.entry2 = ttk.Entry(self.labelframe1, textvariable=self.datoCodigoProd, width=20).place(x=50, y=70, width=50)
+        self.entry2 = ttk.Entry(self.labelframe1, textvariable=self.datoCodigoProd, width=20).place(x=70, y=70, width=50)
         self.datoDescripcion = tk.StringVar()
-        self.entry3 = ttk.Entry(self.labelframe1, textvariable=self.datoDescripcion, width=20).place(x=50, y=110, width=50)
+        self.entry3 = ttk.Entry(self.labelframe1, textvariable=self.datoDescripcion, width=20).place(x=70, y=110, width=50)
         self.datoFechaAlta = tk.StringVar()
-        self.entry4 = ttk.Entry(self.labelframe1, textvariable=self.datoFechaAlta, width=20).place(x=50, y=150, width=50)
+        self.entry4 = ttk.Entry(self.labelframe1, textvariable=self.datoFechaAlta, width=20).place(x=70, y=150, width=50)
         self.datoProveedor = tk.StringVar()
-        self.entry5 = ttk.Entry(self.labelframe1, textvariable=self.datoProveedor, width=20).place(x=50, y=190, width=50)
+        self.entry5 = ttk.Entry(self.labelframe1, textvariable=self.datoProveedor, width=20).place(x=70, y=190, width=50)
 
         self.datoGrupo = tk.StringVar()
-        self.entry6 = ttk.Entry(self.labelframe1, textvariable=self.datoGrupo).place(x=110, y=30, width=50)
+        self.entry6 = ttk.Entry(self.labelframe1, textvariable=self.datoGrupo).place(x=130, y=30, width=50)
         self.datoCodigoProd = tk.StringVar()
-        self.entry7 = ttk.Entry(self.labelframe1, textvariable=self.datoCodigoProd).place(x=110, y=70, width=50)
+        self.entry7 = ttk.Entry(self.labelframe1, textvariable=self.datoCodigoProd).place(x=130, y=70, width=50)
         self.datoDescripcion = tk.StringVar()
-        self.entry8 = ttk.Entry(self.labelframe1, textvariable=self.datoDescripcion).place(x=110, y=110, width=50)
+        self.entry8 = ttk.Entry(self.labelframe1, textvariable=self.datoDescripcion).place(x=130, y=110, width=50)
         self.datoFechaAlta = tk.StringVar()
-        self.entry9 = ttk.Entry(self.labelframe1, textvariable=self.datoFechaAlta).place(x=110, y=150, width=50)
+        self.entry9 = ttk.Entry(self.labelframe1, textvariable=self.datoFechaAlta).place(x=130, y=150, width=50)
         self.datoProveedor = tk.StringVar()
-        self.entry10 = ttk.Entry(self.labelframe1, textvariable=self.datoProveedor).place(x=110, y=190, width=50)
+        self.entry10 = ttk.Entry(self.labelframe1, textvariable=self.datoProveedor).place(x=130, y=190, width=50)
+
+#---------------------Fin lista---------------------
 
 #---------------------Crear buscador---------------------  
 
@@ -154,15 +160,16 @@ class articulosInterfaz:
         self.labelframe1= ttk.Labelframe(self.ventProv, text="Buscar Datos")
         self.labelframe1.place(x=630, y=0, width=300, height=200)
         self.seleccion= tk.IntVar()
-        self.radioButton1= ttk.Radiobutton(self.ventProv, text="Por Codigo", value=1).place(x=650, y=20)
-        self.radioButton2= ttk.Radiobutton(self.ventProv, text="Por Nombre", value=2).place(x=650, y=50)
+        self.radioButton1= ttk.Radiobutton(self.ventProv, text="Por Codigo", value=1).place(x=645, y=20)
+        self.radioButton2= ttk.Radiobutton(self.ventProv, text="Por Nombre", value=2).place(x=645, y=50)
         #Entry
         self.datoBuscador = tk.StringVar()
-        self.entry10 = ttk.Entry(self.labelframe1, textvariable=self.datoBuscador).place(x=115, y=35, width=150, height=25)
+        self.entry10 = ttk.Entry(self.labelframe1, textvariable=self.datoBuscador).place(x=23, y=70, width=200, height=35)
         #Button
-        self.button = ttk.Button(self.labelframe1, text="Buscar", width=20).place(x=115, y=0, width=150, height=30)
+        self.button = ttk.Button(self.labelframe1, text="Buscar", width=20).place(x=115, y=10, width=150, height=40)
 
 #---------------------Fin crear buscador---------------------  
+
     # Pasaje de datos para instrucciones SQL
     def listarProductos(self):
         self.registros = self.treeview.get_children()
