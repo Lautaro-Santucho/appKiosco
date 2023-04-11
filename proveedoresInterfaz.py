@@ -11,10 +11,13 @@ class proveedoresInterfaz:
         
         self.__call__()
         self.buscador()
+        self.agregarClientes()
 #        self.agregarJugadores()
 #        self.borrarJugadores()
 #        self.actualizarJugadores()
 #        self.imprimirJugadores()
+
+        self.ventProv.mainloop()
 
     
     def __call__(self):
@@ -38,7 +41,44 @@ class proveedoresInterfaz:
         self.scrollbar = ttk.Scrollbar(self.treeview, orient="vertical", command=self.treeview.yview())
         self.treeview["yscrollcommand"] = self.scrollbar.set
 
-    def agregarJugadores(self):
+#---------------------Crear buscador---------------------  
+
+    def buscador(self):
+        self.labelframe1= ttk.Labelframe(self.ventProv, text="Buscar Datos")
+        self.labelframe1.place(x=530, y=0, width=350, height=150)
+        self.seleccion= tk.IntVar()
+        self.radioButton1= ttk.Radiobutton(self.ventProv, text="Por Codigo", value=1).place(x=545, y=20)
+        self.radioButton2= ttk.Radiobutton(self.ventProv, text="Por Nombre", value=2).place(x=545, y=50)
+        #Entry
+        self.datoBuscador = tk.StringVar()
+        self.entry10 = ttk.Entry(self.labelframe1, textvariable=self.datoBuscador).place(x=23, y=70, width=300, height=35)
+        #Button
+        self.button = ttk.Button(self.labelframe1, text="Buscar", width=20).place(x=115, y=10, width=220, height=35)
+
+#---------------------Fin crear buscador---------------------  
+
+#---------------------Inicio visualizacion de datos---------------------
+
+    def agregarClientes(self):
+        self.labelframe1= ttk.Labelframe(self.ventProv, text="ingresar datos de clientes")
+        self.labelframe1.place(y=160, width=880, height=500)
+        #Labels
+        self.label1 = ttk.Label(self.labelframe1, text="N° cliente").place(x=10, y=10)
+        self.label2 = ttk.Label(self.labelframe1, text="Nombre").place(x=10, y=55)
+        self.label3 = ttk.Label(self.labelframe1, text="N° documento").place(x=10, y=100)
+        
+        #Entry
+        self.NCliente = tk.StringVar()
+        self.NCliente = ttk.Entry(self.labelframe1, textvariable=self.NCliente).place(x=70, y=10, width=300, height=25)
+        self.Nombre = tk.StringVar()
+        self.Nombre = ttk.Entry(self.labelframe1, textvariable=self.Nombre).place(x=65, y=50, width=300, height=25)
+        self.NDocumento = tk.StringVar()
+        self.NDocumento = ttk.Entry(self.labelframe1, textvariable=self.NDocumento).place(x=100, y=95, width=300, height=25)
+
+
+#---------------------Fin visualizacion de datos---------------------
+
+    '''def agregarJugadores(self):
         self.page1 = ttk.Frame(self.notebook)
         self.notebook.add(self.page1, text="Ingresar jugador")
         self.labelframe1 = ttk.Labelframe(self.page1, text="Ingrese los datos del jugador")
@@ -135,22 +175,5 @@ class proveedoresInterfaz:
         self.boton.grid(column=0, row=1, padx=10, pady=10)
         # ScrollBar
         self.ScrollBar = ttk.Scrollbar(self.scrolledtext, orient='vertical', command=self.scrolledtext.yview)
-        self.scrolledtext["yscrollcommand"] = self.ScrollBar.set
+        self.scrolledtext["yscrollcommand"] = self.ScrollBar.set'''
 
-#---------------------Crear buscador---------------------  
-
-    def buscador(self):
-        self.labelframe1= ttk.Labelframe(self.ventProv, text="Buscar Datos")
-        self.labelframe1.place(x=530, y=0, width=350, height=150)
-        self.seleccion= tk.IntVar()
-        self.radioButton1= ttk.Radiobutton(self.ventProv, text="Por Codigo", value=1).place(x=545, y=20)
-        self.radioButton2= ttk.Radiobutton(self.ventProv, text="Por Nombre", value=2).place(x=545, y=50)
-        #Entry
-        self.datoBuscador = tk.StringVar()
-        self.entry10 = ttk.Entry(self.labelframe1, textvariable=self.datoBuscador).place(x=23, y=70, width=300, height=35)
-        #Button
-        self.button = ttk.Button(self.labelframe1, text="Buscar", width=20).place(x=115, y=10, width=220, height=35)
-
-#---------------------Fin crear buscador---------------------  
-
-        self.ventProv.mainloop()
