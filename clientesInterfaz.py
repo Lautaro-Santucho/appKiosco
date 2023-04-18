@@ -12,6 +12,7 @@ class clientesInterfaz:
         self.__call__()
         self.buscador()
         self.agregarClientes()
+        self.botonesCRUD()
 #        self.agregarJugadores()
 #        self.borrarJugadores()
 #        self.actualizarJugadores()
@@ -72,12 +73,27 @@ class clientesInterfaz:
         self.NCliente = tk.StringVar()
         self.NCliente = ttk.Entry(self.labelframe1, textvariable=self.NCliente).place(x=70, y=10, width=300, height=25)
         self.Nombre = tk.StringVar()
-        self.Nombre = ttk.Entry(self.labelframe1, textvariable=self.Nombre).place(x=65, y=50, width=300, height=25)
+        self.Nombre = ttk.Entry(self.labelframe1, textvariable=self.Nombre).place(x=65, y=53, width=300, height=25)
         self.NDocumento = tk.StringVar()
         self.NDocumento = ttk.Entry(self.labelframe1, textvariable=self.NDocumento).place(x=78, y=95, width=300, height=25)
 
 
 #---------------------Fin visualizacion de datos---------------------
+
+#---------------------Inicio botones CRUD---------------------  
+
+    def botonesCRUD(self):
+        self.labelframe1= ttk.Labelframe(self.vent, text="Opciones")
+        self.labelframe1.place(y=350)
+
+        #Button
+        self.button1 = ttk.Button(self.labelframe1, text="Agregar", width=20).grid(column=0, row=0, padx=10, pady=10)
+        self.button2 = ttk.Button(self.labelframe1, text="Modificar", width=20).grid(column=1, row=0, padx=10, pady=10)
+        self.button3 = ttk.Button(self.labelframe1, text="Eliminar", width=20).grid(column=2, row=0, padx=10, pady=10)
+        self.button4 = ttk.Button(self.labelframe1, text="Cancelar", width=20).grid(column=4, row=0, padx=10, pady=10)
+        self.button5 = ttk.Button(self.labelframe1, text="Grabar", width=20).grid(column=5, row=0, padx=10, pady=10)
+
+#---------------------Fin botones CRUD---------------------
 
     '''def agregarJugadores(self):
         self.page1 = ttk.Frame(self.notebook)

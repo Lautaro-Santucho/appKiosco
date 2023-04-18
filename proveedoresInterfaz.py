@@ -12,6 +12,7 @@ class proveedoresInterfaz:
         self.__call__()
         self.buscador()
         self.agregarClientes()
+        self.botonesCRUD()
 #        self.agregarJugadores()
 #        self.borrarJugadores()
 #        self.actualizarJugadores()
@@ -78,6 +79,21 @@ class proveedoresInterfaz:
 
 
 #---------------------Fin visualizacion de datos---------------------
+
+#---------------------Inicio botones CRUD---------------------  
+
+    def botonesCRUD(self):
+        self.labelframe1= ttk.Labelframe(self.ventProv, text="Opciones")
+        self.labelframe1.place(y=350)
+
+        #Button
+        self.button1 = ttk.Button(self.labelframe1, text="Agregar", width=20).grid(column=0, row=0, padx=10, pady=10)
+        self.button2 = ttk.Button(self.labelframe1, text="Modificar", width=20).grid(column=1, row=0, padx=10, pady=10)
+        self.button3 = ttk.Button(self.labelframe1, text="Eliminar", width=20).grid(column=2, row=0, padx=10, pady=10)
+        self.button4 = ttk.Button(self.labelframe1, text="Cancelar", width=20).grid(column=4, row=0, padx=10, pady=10)
+        self.button5 = ttk.Button(self.labelframe1, text="Grabar", width=20).grid(column=5, row=0, padx=10, pady=10)
+
+#---------------------Fin botones CRUD---------------------
 
     '''def agregarJugadores(self):
         self.page1 = ttk.Frame(self.notebook)
