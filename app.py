@@ -4,6 +4,7 @@ from tkinter import scrolledtext as st
 import baseDatosApp
 import articulosInterfaz
 import proveedoresInterfaz
+import clientesInterfaz
 
 
 class Interfaz:
@@ -14,6 +15,7 @@ class Interfaz:
         self.Database = baseDatosApp.CRUDarticulos()
         self.Provee= proveedoresInterfaz.proveedoresInterfaz()
         self.Artic= articulosInterfaz.articulosInterfaz()
+        self.Clientes= clientesInterfaz.clientesInterfaz()
 
         self.barraSuperior()
 
@@ -34,9 +36,13 @@ class Interfaz:
         proveedorMenu= tk.Menu(barraMenu, tearoff=0)
         proveedorMenu.add_command(label="Proveedor", command=self.Provee.ventanaProveedores)
 
+        clientesMenu= tk.Menu(barraMenu, tearoff=0)
+        clientesMenu.add_command(label="Clientes", command= self.Clientes.ventanaClientes)
+
         barraMenu.add_cascade(label="Conectar", menu=conexionMenu)
         barraMenu.add_cascade(label="Articulo", menu=articuloMenu)
         barraMenu.add_cascade(label="Proveedores", menu=proveedorMenu)
+        barraMenu.add_cascade(label="Clientes", menu=clientesMenu)
 
 
 

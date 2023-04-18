@@ -68,27 +68,27 @@ class articulosInterfaz:
 
         # Entry
         self.datoGrupo = tk.StringVar()
-        self.entry1 = ttk.Entry(self.labelframe1, textvariable=self.datoGrupo).place(x=110, y=13, width=100, height=25)
+        self.entry1 = ttk.Entry(self.labelframe1, textvariable=self.datoGrupo).place(x=110, y=10, width=100, height=25)
         self.datoCodigoProd = tk.StringVar()
-        self.entry2 = ttk.Entry(self.labelframe1, textvariable=self.datoCodigoProd).place(x=110, y=53, width=100, height=25)
+        self.entry2 = ttk.Entry(self.labelframe1, textvariable=self.datoCodigoProd).place(x=110, y=48, width=100, height=25)
         self.datoDescripcion = tk.StringVar()
-        self.entry3 = ttk.Entry(self.labelframe1, textvariable=self.datoDescripcion).place(x=110, y=93, width=250, height=25)
+        self.entry3 = ttk.Entry(self.labelframe1, textvariable=self.datoDescripcion).place(x=110, y=85, width=250, height=25)
         self.datoFechaAlta = tk.StringVar()
-        self.entry4 = ttk.Entry(self.labelframe1, textvariable=self.datoFechaAlta).place(x=110, y=133, width=100, height=25)
+        self.entry4 = ttk.Entry(self.labelframe1, textvariable=self.datoFechaAlta).place(x=110, y=125, width=100, height=25)
         self.datoProveedor = tk.StringVar()
-        self.entry5 = ttk.Entry(self.labelframe1, textvariable=self.datoProveedor).place(x=110, y=173, width=100, height=25)
+        self.entry5 = ttk.Entry(self.labelframe1, textvariable=self.datoProveedor).place(x=110, y=164, width=100, height=25)
         self.datoStock = tk.StringVar()
-        self.entry6 = ttk.Entry(self.labelframe1, textvariable=self.datoStock).place(x=110, y=213, width=100, height=25)
+        self.entry6 = ttk.Entry(self.labelframe1, textvariable=self.datoStock).place(x=110, y=202, width=100, height=25)
         self.datoUbiFisica = tk.StringVar()
-        self.entry7 = ttk.Entry(self.labelframe1, textvariable=self.datoUbiFisica).place(x=110, y=253, width=100, height=25)
+        self.entry7 = ttk.Entry(self.labelframe1, textvariable=self.datoUbiFisica).place(x=110, y=240, width=100, height=25)
         self.datoCantBultos = tk.StringVar()
-        self.entry8 = ttk.Entry(self.labelframe1, textvariable=self.datoCantBultos).place(x=110, y=293, width=100, height=25)
+        self.entry8 = ttk.Entry(self.labelframe1, textvariable=self.datoCantBultos).place(x=110, y=280, width=100, height=25)
         self.datoIVA = tk.StringVar()
-        self.entry9 = ttk.Entry(self.labelframe1, textvariable=self.datoIVA).place(x=420, y=253, width=100, height=25)
+        self.entry9 = ttk.Entry(self.labelframe1, textvariable=self.datoIVA).place(x=420, y=250, width=100, height=25)
         self.datoCosto = tk.StringVar()
-        self.entry10 = ttk.Entry(self.labelframe1, textvariable=self.datoCosto).place(x=275, y=293, width=100, height=25)
+        self.entry10 = ttk.Entry(self.labelframe1, textvariable=self.datoCosto).place(x=275, y=290, width=100, height=25)
         self.datoDesc = tk.StringVar()
-        self.entry11 = ttk.Entry(self.labelframe1, textvariable=self.datoDesc).place(x=420, y=293, width=100, height=25)
+        self.entry11 = ttk.Entry(self.labelframe1, textvariable=self.datoDesc).place(x=420, y=290, width=100, height=25)
       
         #datoCosto para entry 12
         self.entry12 = ttk.Entry(self.labelframe1, textvariable=self.datoCosto).place(x=425, y=125, width=50)
@@ -164,7 +164,7 @@ class articulosInterfaz:
         self.radioButton2= ttk.Radiobutton(self.ventProv, text="Por Nombre", value=2).place(x=645, y=50)
         #Entry
         self.datoBuscador = tk.StringVar()
-        self.entry10 = ttk.Entry(self.labelframe1, textvariable=self.datoBuscador).place(x=23, y=70, width=200, height=35)
+        self.entry10 = ttk.Entry(self.labelframe1, textvariable=self.datoBuscador).place(x=23, y=85, width=200, height=35)
         #Button
         self.button = ttk.Button(self.labelframe1, text="Buscar", width=20).place(x=115, y=10, width=150, height=40)
 

@@ -3,8 +3,8 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import scrolledtext as st
 
-class proveedoresInterfaz:
-    def ventanaProveedores(self):
+class clientesInterfaz:
+    def ventanaClientes(self):
         self.ventProv= tk.Toplevel()
         self.ventProv.title("Ventana de proveedores")
         self.ventProv.geometry("940x680")
@@ -65,7 +65,7 @@ class proveedoresInterfaz:
         #Labels
         self.label1 = ttk.Label(self.labelframe1, text="N° cliente").place(x=10, y=10)
         self.label2 = ttk.Label(self.labelframe1, text="Nombre").place(x=10, y=55)
-        self.label3 = ttk.Label(self.labelframe1, text="Localidad").place(x=10, y=100)
+        self.label3 = ttk.Label(self.labelframe1, text="Documento").place(x=10, y=100)
         
         
         #Entry
@@ -74,7 +74,7 @@ class proveedoresInterfaz:
         self.Nombre = tk.StringVar()
         self.Nombre = ttk.Entry(self.labelframe1, textvariable=self.Nombre).place(x=65, y=50, width=300, height=25)
         self.NDocumento = tk.StringVar()
-        self.NDocumento = ttk.Entry(self.labelframe1, textvariable=self.NDocumento).place(x=73, y=95, width=300, height=25)
+        self.NDocumento = ttk.Entry(self.labelframe1, textvariable=self.NDocumento).place(x=78, y=95, width=300, height=25)
 
 
 #---------------------Fin visualizacion de datos---------------------
