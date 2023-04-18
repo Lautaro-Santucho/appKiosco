@@ -5,6 +5,7 @@ import baseDatosApp
 import articulosInterfaz
 import proveedoresInterfaz
 import clientesInterfaz
+import moduloDeGrupo
 
 
 class Interfaz:
@@ -16,6 +17,7 @@ class Interfaz:
         self.Provee= proveedoresInterfaz.proveedoresInterfaz()
         self.Artic= articulosInterfaz.articulosInterfaz()
         self.Clientes= clientesInterfaz.clientesInterfaz()
+        self.mod_grupo= moduloDeGrupo.moduloGrupo()
 
         self.barraSuperior()
 
@@ -35,6 +37,7 @@ class Interfaz:
 
         proveedorMenu= tk.Menu(barraMenu, tearoff=0)
         proveedorMenu.add_command(label="Proveedor", command=self.Provee.ventanaProveedores)
+        proveedorMenu.add_command(label="Modelo de grupo", command=self.mod_grupo.modGrupo)
 
         clientesMenu= tk.Menu(barraMenu, tearoff=0)
         clientesMenu.add_command(label="Clientes", command= self.Clientes.ventanaClientes)

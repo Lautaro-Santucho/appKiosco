@@ -5,9 +5,9 @@ from tkinter import scrolledtext as st
 
 class clientesInterfaz:
     def ventanaClientes(self):
-        self.ventProv= tk.Toplevel()
-        self.ventProv.title("Ventana de proveedores")
-        self.ventProv.geometry("940x680")
+        self.vent= tk.Toplevel()
+        self.vent.title("Ventana de proveedores")
+        self.vent.geometry("940x680")
         
         self.__call__()
         self.buscador()
@@ -17,12 +17,12 @@ class clientesInterfaz:
 #        self.actualizarJugadores()
 #        self.imprimirJugadores()
 
-        self.ventProv.mainloop()
+        self.vent.mainloop()
 
     
     def __call__(self):
         # Treeview
-        self.treeview = ttk.Treeview(self.ventProv, columns=("DNI", "nombre", "apellido", "NCamiseta"))
+        self.treeview = ttk.Treeview(self.vent, columns=("DNI", "nombre", "apellido", "NCamiseta"))
         self.treeview.grid(column=0, row=0)
         self.treeview.place(width=520, height=150)
 
@@ -44,11 +44,11 @@ class clientesInterfaz:
 #---------------------Crear buscador---------------------  
 
     def buscador(self):
-        self.labelframe1= ttk.Labelframe(self.ventProv, text="Buscar Datos")
+        self.labelframe1= ttk.Labelframe(self.vent, text="Buscar Datos")
         self.labelframe1.place(x=530, y=0, width=350, height=150)
         self.seleccion= tk.IntVar()
-        self.radioButton1= ttk.Radiobutton(self.ventProv, text="Por Codigo", value=1).place(x=545, y=20)
-        self.radioButton2= ttk.Radiobutton(self.ventProv, text="Por Nombre", value=2).place(x=545, y=50)
+        self.radioButton1= ttk.Radiobutton(self.vent, text="Por Codigo", value=1).place(x=545, y=20)
+        self.radioButton2= ttk.Radiobutton(self.vent, text="Por Nombre", value=2).place(x=545, y=50)
         #Entry
         self.datoBuscador = tk.StringVar()
         self.entry10 = ttk.Entry(self.labelframe1, textvariable=self.datoBuscador).place(x=23, y=70, width=300, height=35)
@@ -60,7 +60,7 @@ class clientesInterfaz:
 #---------------------Inicio visualizacion de datos---------------------
 
     def agregarClientes(self):
-        self.labelframe1= ttk.Labelframe(self.ventProv, text="ingresar datos de clientes")
+        self.labelframe1= ttk.Labelframe(self.vent, text="ingresar datos de clientes")
         self.labelframe1.place(y=160, width=880, height=500)
         #Labels
         self.label1 = ttk.Label(self.labelframe1, text="N° cliente").place(x=10, y=10)
