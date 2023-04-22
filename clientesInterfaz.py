@@ -23,21 +23,19 @@ class clientesInterfaz:
     
     def __call__(self):
         # Treeview
-        self.treeview = ttk.Treeview(self.vent, columns=("DNI", "nombre", "apellido", "NCamiseta"))
+        self.treeview = ttk.Treeview(self.vent, columns=("N° de cliente", "Nombre", "Documento"))
         self.treeview.grid(column=0, row=0)
         self.treeview.place(width=520, height=150)
 
-        self.treeview.column("#0", width=80)
-        self.treeview.column("#1", width=80)
+        self.treeview.column("#0", width=10)
+        self.treeview.column("#1", width=10)
         self.treeview.column("#2", width=80)
-        self.treeview.column("#3", width=80)
-        self.treeview.column("#4", width=80)
+        self.treeview.column("#3", width=50)
 
         self.treeview.heading("#0", text="codigo")
-        self.treeview.heading("#1", text="DNI")
-        self.treeview.heading("#2", text="nombre")
-        self.treeview.heading("#3", text="apellido")
-        self.treeview.heading("#4", text="NCamiseta")
+        self.treeview.heading("#1", text="N° de cliente")
+        self.treeview.heading("#2", text="Nombre")
+        self.treeview.heading("#3", text="Documento")
         # Scrollbar
         self.scrollbar = ttk.Scrollbar(self.treeview, orient="vertical", command=self.treeview.yview())
         self.treeview["yscrollcommand"] = self.scrollbar.set
@@ -64,18 +62,18 @@ class clientesInterfaz:
         self.labelframe1= ttk.Labelframe(self.vent, text="ingresar datos de clientes")
         self.labelframe1.place(y=160, width=880, height=500)
         #Labels
-        self.label1 = ttk.Label(self.labelframe1, text="N° cliente").place(x=10, y=10)
-        self.label2 = ttk.Label(self.labelframe1, text="Nombre").place(x=10, y=55)
-        self.label3 = ttk.Label(self.labelframe1, text="Documento").place(x=10, y=100)
+        self.label1 = ttk.Label(self.labelframe1, text="N° cliente").place(x=17, y=10)
+        self.label2 = ttk.Label(self.labelframe1, text="Nombre").place(x=23, y=55)
+        self.label3 = ttk.Label(self.labelframe1, text="Documento").place(x=8, y=100)
         
         
         #Entry
         self.NCliente = tk.StringVar()
-        self.NCliente = ttk.Entry(self.labelframe1, textvariable=self.NCliente).place(x=70, y=10, width=300, height=25)
+        self.NCliente = ttk.Entry(self.labelframe1, textvariable=self.NCliente).place(x=80, y=10, width=300, height=25)
         self.Nombre = tk.StringVar()
-        self.Nombre = ttk.Entry(self.labelframe1, textvariable=self.Nombre).place(x=65, y=53, width=300, height=25)
+        self.Nombre = ttk.Entry(self.labelframe1, textvariable=self.Nombre).place(x=80, y=53, width=300, height=25)
         self.NDocumento = tk.StringVar()
-        self.NDocumento = ttk.Entry(self.labelframe1, textvariable=self.NDocumento).place(x=78, y=95, width=300, height=25)
+        self.NDocumento = ttk.Entry(self.labelframe1, textvariable=self.NDocumento).place(x=80, y=95, width=300, height=25)
 
 
 #---------------------Fin visualizacion de datos---------------------
