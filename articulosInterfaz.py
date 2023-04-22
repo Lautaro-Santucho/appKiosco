@@ -49,6 +49,11 @@ class articulosInterfaz:
 
         self.labelframe1 = ttk.Labelframe(self.ventProv)
         self.labelframe1.place(y=250, width=800, height=500)
+
+        #Labelframe para valores unitarios
+        self.labelframe2=ttk.Labelframe(self.ventProv, text="Valores unitarios")
+        self.labelframe2.place(x=373, y=280, width=200, height=215) 
+        
         # Labels
         self.label1 = ttk.Label(self.labelframe1, text="Grupo").grid(column=0, row=0, padx=10, pady=10)
         self.label2 = ttk.Label(self.labelframe1, text="CodigoProd").grid(column=0, row=1, padx=10, pady=10)
@@ -62,9 +67,10 @@ class articulosInterfaz:
         self.label11 = ttk.Label(self.labelframe1, text="Costo", foreground="red").place(x=230, y=293)
         self.label12 = ttk.Label(self.labelframe1, text="Desc", foreground="green").place(x=385, y=293)
 
-        self.label13 = ttk.Label(self.labelframe1, text="Costo").place(x=385, y=125)
-        self.label13 = ttk.Label(self.labelframe1, text="Utilidad").place(x=375, y=168)
-        self.label13 = ttk.Label(self.labelframe1, text="Neto").place(x=385, y=208)
+        #Label valores unitarios
+        self.label13 = ttk.Label(self.labelframe2, text="Costo").place(x=25, y=5)
+        self.label13 = ttk.Label(self.labelframe2, text="Utilidad").place(x=20, y=45)
+        self.label13 = ttk.Label(self.labelframe2, text="Neto").place(x=27, y=85)
 
         # Entry
         self.datoGrupo = tk.StringVar()
@@ -90,12 +96,13 @@ class articulosInterfaz:
         self.datoDesc = tk.StringVar()
         self.entry11 = ttk.Entry(self.labelframe1, textvariable=self.datoDesc).place(x=420, y=290, width=100, height=25)
       
-        #datoCosto para entry 12
-        self.entry12 = ttk.Entry(self.labelframe1, textvariable=self.datoCosto).place(x=425, y=125, width=50)
+        #Entry para valores unitarios
+        self.datoCostoUnitario=tk.StringVar()
+        self.entry12 = ttk.Entry(self.labelframe2, textvariable=self.datoCostoUnitario).place(x=70, y=4, width=100, height=25)
         self.datoUtilidad = tk.StringVar()
-        self.entry13 = ttk.Entry(self.labelframe1, textvariable=self.datoUtilidad).place(x=425, y=168, width=50)
+        self.entry13 = ttk.Entry(self.labelframe2, textvariable=self.datoUtilidad).place(x=70, y=44, width=100, height=25)
         self.datoNeto = tk.StringVar()
-        self.entry14 = ttk.Entry(self.labelframe1, textvariable=self.datoNeto).place(x=425, y=208, width=50)
+        self.entry14 = ttk.Entry(self.labelframe2, textvariable=self.datoNeto).place(x=70, y=84, width=100, height=25)
 
 #---------------------fin visualizar datos---------------------  
 
