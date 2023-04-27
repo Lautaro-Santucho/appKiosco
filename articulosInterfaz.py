@@ -1,4 +1,3 @@
-from tkinter import messagebox
 import tkinter as tk
 from tkinter import ttk
 from tkinter import scrolledtext as st
@@ -63,9 +62,9 @@ class articulosInterfaz:
         self.label6 = ttk.Label(self.labelframe1, text="Stock").grid(column=0, row=5, padx=10, pady=10)
         self.label7 = ttk.Label(self.labelframe1, text="Ubicacion fisica").grid(column=0, row=6, padx=10, pady=10)
         self.label9 = ttk.Label(self.labelframe1, text="Cant de bultos").grid(column=0, row=7, padx=10, pady=10)
-        self.label10 = ttk.Label(self.labelframe1, text="IVA especial").place(x=342, y=253)
-        self.label11 = ttk.Label(self.labelframe1, text="Costo", foreground="red").place(x=230, y=293)
-        self.label12 = ttk.Label(self.labelframe1, text="Desc", foreground="green").place(x=385, y=293)
+        self.label10 = ttk.Label(self.labelframe1, text="IVA especial").place(x=342, y=243)
+        self.label11 = ttk.Label(self.labelframe1, text="Costo", foreground="red").place(x=230, y=283)
+        self.label12 = ttk.Label(self.labelframe1, text="Desc", foreground="green").place(x=385, y=283)
 
         #Label valores unitarios
         self.label13 = ttk.Label(self.labelframe2, text="Costo").place(x=25, y=5)
@@ -74,37 +73,66 @@ class articulosInterfaz:
 
         # Entry
         self.datoGrupo = tk.StringVar()
-        self.entry1 = ttk.Entry(self.labelframe1, textvariable=self.datoGrupo).place(x=110, y=10, width=100, height=25)
+        self.entryGrupo = ttk.Entry(self.labelframe1, textvariable=self.datoGrupo).place(x=110, y=10, width=100, height=25)
         self.datoCodigoProd = tk.StringVar()
-        self.entry2 = ttk.Entry(self.labelframe1, textvariable=self.datoCodigoProd).place(x=110, y=48, width=100, height=25)
+        self.entryCodigoProd = ttk.Entry(self.labelframe1, textvariable=self.datoCodigoProd).place(x=110, y=48, width=100, height=25)
         self.datoDescripcion = tk.StringVar()
-        self.entry3 = ttk.Entry(self.labelframe1, textvariable=self.datoDescripcion).place(x=110, y=85, width=250, height=25)
+        self.entryDescripcion = ttk.Entry(self.labelframe1, textvariable=self.datoDescripcion).place(x=110, y=85, width=250, height=25)
         self.datoFechaAlta = tk.StringVar()
-        self.entry4 = ttk.Entry(self.labelframe1, textvariable=self.datoFechaAlta).place(x=110, y=125, width=100, height=25)
+        self.entryFechaAlta = ttk.Entry(self.labelframe1, textvariable=self.datoFechaAlta).place(x=110, y=125, width=100, height=25)
         self.datoProveedor = tk.StringVar()
-        self.entry5 = ttk.Entry(self.labelframe1, textvariable=self.datoProveedor).place(x=110, y=164, width=100, height=25)
+        self.entryProveedor = ttk.Entry(self.labelframe1, textvariable=self.datoProveedor).place(x=110, y=164, width=100, height=25)
         self.datoStock = tk.StringVar()
-        self.entry6 = ttk.Entry(self.labelframe1, textvariable=self.datoStock).place(x=110, y=202, width=100, height=25)
+        self.entryStock = ttk.Entry(self.labelframe1, textvariable=self.datoStock).place(x=110, y=202, width=100, height=25)
         self.datoUbiFisica = tk.StringVar()
-        self.entry7 = ttk.Entry(self.labelframe1, textvariable=self.datoUbiFisica).place(x=110, y=240, width=100, height=25)
+        self.entryUbiFisica = ttk.Entry(self.labelframe1, textvariable=self.datoUbiFisica).place(x=110, y=240, width=100, height=25)
         self.datoCantBultos = tk.StringVar()
-        self.entry8 = ttk.Entry(self.labelframe1, textvariable=self.datoCantBultos).place(x=110, y=280, width=100, height=25)
+        self.entryCantBultos = ttk.Entry(self.labelframe1, textvariable=self.datoCantBultos).place(x=110, y=280, width=100, height=25)
         self.datoIVA = tk.StringVar()
-        self.entry9 = ttk.Entry(self.labelframe1, textvariable=self.datoIVA).place(x=420, y=250, width=100, height=25)
+        self.entryIVA = ttk.Entry(self.labelframe1, textvariable=self.datoIVA).place(x=420, y=240, width=100, height=25)
         self.datoCosto = tk.StringVar()
-        self.entry10 = ttk.Entry(self.labelframe1, textvariable=self.datoCosto).place(x=275, y=290, width=100, height=25)
+        self.entryCosto = ttk.Entry(self.labelframe1, textvariable=self.datoCosto)
+        self.entryCosto.place(x=275, y=280, width=100, height=25)
+        self.entryCosto.bind("<KeyPress-Tab>", self.calculosNeto)
         self.datoDesc = tk.StringVar()
-        self.entry11 = ttk.Entry(self.labelframe1, textvariable=self.datoDesc).place(x=420, y=290, width=100, height=25)
+        self.entryDesc = ttk.Entry(self.labelframe1, textvariable=self.datoDesc).place(x=420, y=280, width=100, height=25)
       
         #Entry para valores unitarios
         self.datoCostoUnitario=tk.StringVar()
-        self.entry12 = ttk.Entry(self.labelframe2, textvariable=self.datoCostoUnitario).place(x=70, y=4, width=100, height=25)
-        self.datoUtilidad = tk.StringVar()
-        self.entry13 = ttk.Entry(self.labelframe2, textvariable=self.datoUtilidad).place(x=70, y=44, width=100, height=25)
+        self.entryCostoUnitario = ttk.Entry(self.labelframe2, textvariable=self.datoCostoUnitario)
+        self.entryCostoUnitario.place(x=70, y=4, width=100, height=25)
+        self.entryCostoUnitario.bind("<KeyPress-Tab>", self.calculoUtilidad)
+        self.datoUtilidad = tk.StringVar(value="30")
+        self.entryUtilidad = ttk.Entry(self.labelframe2, textvariable=self.datoUtilidad)
+        self.entryUtilidad.place(x=70, y=44, width=100, height=25)
+        self.entryUtilidad.bind("<KeyPress-Tab>", self.calculoUtilidad)
         self.datoNeto = tk.StringVar()
-        self.entry14 = ttk.Entry(self.labelframe2, textvariable=self.datoNeto).place(x=70, y=84, width=100, height=25)
+        self.entryNeto = ttk.Entry(self.labelframe2, textvariable=self.datoNeto)
+        self.entryNeto.place(x=70, y=84, width=100, height=25)
+
 
 #---------------------fin visualizar datos---------------------  
+
+#--------------------- Calculos ---------------------------
+
+    def calculosNeto(self, event):
+    #Calculo costo unitario
+        self.costo= float(self.datoCosto.get())
+        self.cantBultos= float(self.datoCantBultos.get())
+
+        self.calculoUnit= (self.costo/self.cantBultos)
+        self.datoCostoUnitario.set(self.calculoUnit)
+
+    #CalculoNeto
+    def calculoUtilidad(self, event):
+        self.utilidad= float(self.datoUtilidad.get())
+        self.calculoNeto= self.calculoUnit * (self.utilidad + 100)/100
+        self.datoNeto.set(self.calculoNeto)
+
+
+
+
+#--------------------- Fin de calculos ---------------------
 
 #---------------------Inicio botones CRUD---------------------  
 
@@ -176,6 +204,8 @@ class articulosInterfaz:
         self.button = ttk.Button(self.labelframe1, text="Buscar", width=20).place(x=115, y=10, width=150, height=40)
 
 #---------------------Fin crear buscador---------------------  
+
+
 
     # Pasaje de datos para instrucciones SQL
     def listarProductos(self):
