@@ -11,7 +11,7 @@ import moduloDeGrupo
 class Interfaz:
     def __init__(self):
         self.vent = tk.Tk()
-        self.vent.title("Base de datos de Seleccion Argentina")
+        self.vent.title("ABM de articulos")
         self.vent.geometry("1024x720")
         self.Database = baseDatosApp.CRUDarticulos()
         self.Provee= proveedoresInterfaz.proveedoresInterfaz()
