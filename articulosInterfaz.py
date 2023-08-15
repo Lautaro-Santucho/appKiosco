@@ -10,7 +10,13 @@ class articulosInterfaz:
         self.ventProv= tk.Toplevel()
         self.ventProv.title("Ventana de productos")
         self.ventProv.geometry("940x680")
-        self.DataBase= baseDatosApp.CRUDarticulos
+        self.ventProv.resizable(width=0, height=0)
+        self.DataBase= baseDatosApp.CRUDarticulos()
+
+        self.ventProv.rowconfigure(0, weight=1)
+        self.ventProv.columnconfigure(0, weight=1)
+        self.ventProv.rowconfigure(1, weight=1)
+        self.ventProv.columnconfigure(1, weight=1)
 
         self.__call__()
         self.agregarProductos()
@@ -23,21 +29,19 @@ class articulosInterfaz:
     
     def __call__(self):
         # Treeview
-        self.treeview = ttk.Treeview(self.ventProv, columns=("Descripcion", "Costo", "Precio", "Stock"))
+        self.treeview = ttk.Treeview(self.ventProv, columns=("Descripcion", "Costo", "Precio"))
         self.treeview.grid(column=0, row=0)
         self.treeview.place(width=620)
 
         self.treeview.column("#0", width=50)
         self.treeview.column("#1", width=350)
-        self.treeview.column("#2", width=5)
-        self.treeview.column("#3", width=5)
-        self.treeview.column("#4", width=5)
+        self.treeview.column("#2", width=10)
+        self.treeview.column("#3", width=10)
 
         self.treeview.heading("#0", text="Codigo")
         self.treeview.heading("#1", text="Descripcion")
         self.treeview.heading("#2", text="Costo")
         self.treeview.heading("#3", text="Precio")
-        self.treeview.heading("#4", text="Stock")
         # Scrollbar
         self.scrollbar = ttk.Scrollbar(self.treeview, orient="vertical", command=self.treeview.yview())
         self.treeview["yscrollcommand"] = self.scrollbar.set
@@ -76,7 +80,7 @@ class articulosInterfaz:
         self.entryGrupo = ttk.Entry(self.labelframe1, textvariable=self.datoGrupo).place(x=110, y=10, width=100, height=25)
         
         self.datoCodigoProd = tk.StringVar()
-        self.entryCodigoProd = ttk.Entry(self.labelframe1, textvariable=self.datoCodigoProd).place(x=110, y=48, width=100, height=25)
+        self.entryCodigoProd = ttk.Entry(self.labelframe1, textvariable=self.datoCodigoProd, state="readonly").place(x=110, y=48, width=100, height=25)
         
         self.datoDescripcion = tk.StringVar()
         self.entryDescripcion = ttk.Entry(self.labelframe1, textvariable=self.datoDescripcion).place(x=110, y=85, width=250, height=25)
@@ -195,7 +199,9 @@ class articulosInterfaz:
         self.labelframe1.place(y=600)
 
         #Button
-        self.button1 = ttk.Button(self.labelframe1, text="Agregar", width=20).grid(column=0, row=0, padx=10, pady=10)
+        self.button1 = ttk.Button(self.labelframe1, text="Agregar", width=20, command= self.agregar_base_datos)
+        self.button1.grid(column=0, row=0, padx=10, pady=10)
+        self.button1.bind("<Alt-A>", self.agregar_base_datos)
         self.button2 = ttk.Button(self.labelframe1, text="Modificar", width=20).grid(column=1, row=0, padx=10, pady=10)
         self.button3 = ttk.Button(self.labelframe1, text="Eliminar", width=20).grid(column=2, row=0, padx=10, pady=10)
         self.button4 = ttk.Button(self.labelframe1, text="Cancelar", width=20).grid(column=4, row=0, padx=10, pady=10)
@@ -386,23 +392,37 @@ class articulosInterfaz:
         for fila in self.DataBase.listar():
             self.treeview.insert("", 0, text=fila[0], values=(fila[1], fila[2], fila[3], fila[4]))
 
-    '''def agregarProductos(self):
-        datos = (self.datoGrupo.get(), self.datoCodigoProd.get(), self.datoDescripcion.get(), 
-                 self.datoFechaAlta.get(),self.datoStock.get(),self.datoUbiFisica.get(),
-                 self.datoCantBultos.get(),self.datoIVA.get(),self.datoCosto.get(),
-                 self.datoDesc.get())
-        self.DataBase.agregar(datos)
-        self.datoGrupo.set("")
+    def agregar_base_datos(self):
+        datos = (self.datoGrupo.get(),self.datoDescripcion.get(), self.datoFechaAlta.get(), self.datoProveedor.get(), self.datoStock.get(),self.datoCantBultos.get(), self.datoCosto.get(),self.datoAgreagarDesc.get(),self.datoDesc.get(),self.datoSinIVA.get(), self.datoIVA.get(), self.datoCostoUnitario.get(), self.datoUtilidad.get(),self.datoNeto.get(), 
+                 self.datoUtilidadLista1.get(), self.datoNetoLista1.get(), self.datoUtilidadLista2.get(),self.datoNetoLista2.get(), self.datoUtilidadLista3.get(), self.datoNetoLista3.get(),self.datoUtilidadLista4.get(), self.datoNetoLista4.get(), self.datoUtilidadLista5.get(), self.datoNetoLista5.get())
+        
+        self.DataBase.agregar_datos(datos)
+        
+        self.datoGrupo.set("") 
         self.datoCodigoProd.set("")
         self.datoDescripcion.set("")
         self.datoFechaAlta.set("")
+        self.datoProveedor.set("")
         self.datoStock.set("")
-        self.datoUbiFisica.set("")
         self.datoCantBultos.set("")
-        self.datoIVA.set("")
         self.datoCosto.set("")
+        self.datoAgreagarDesc.set("")
         self.datoDesc.set("")
+        self.datoSinIVA.set("")
+        self.datoIVA.set("")
+        self.datoCostoUnitario.set("")
+        self.datoUtilidad.set("")
+        self.datoNeto.set("")
+        self.datoUtilidadLista1.set("")
+        self.datoNetoLista1.set("")
+        self.datoUtilidadLista2.set("")
+        self.datoNetoLista2.set("")
+        self.datoUtilidadLista3.set("")
+        self.datoNetoLista3.set("")
+        self.datoUtilidadLista4.set("")
+        self.datoNetoLista4.set("")
+        self.datoUtilidadLista5.set("")
+        self.datoNetoLista5.set("")
 
 
-        self.listarSelecc()'''
-
+        #self.listarSelecc()

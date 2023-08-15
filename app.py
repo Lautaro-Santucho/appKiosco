@@ -1,6 +1,4 @@
 import tkinter as tk
-from tkinter import ttk
-from tkinter import scrolledtext as st
 import baseDatosApp
 import articulosInterfaz
 import proveedoresInterfaz
@@ -50,7 +48,7 @@ class Interfaz:
 
 
     # Pasaje de datos para instrucciones SQL
-    def listarSelecc(self):
+'''    def listarSelecc(self):
         self.registros = self.treeview.get_children()
         for elementos in self.registros:
             self.treeview.delete(elementos)
@@ -68,7 +66,7 @@ class Interfaz:
         self.datoNCamiseta.set("")
         self.listarSelecc()
 
-'''    def borrarSelecc(self):
+    def borrarSelecc(self):
         datos = (self.treeview.item(self.treeview.selection())["text"],)
         self.Database.borrar(datos)
         self.listarSelecc()
