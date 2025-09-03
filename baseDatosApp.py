@@ -47,22 +47,28 @@ class CRUDarticulos:
             messagebox.showwarning("!Advertencia¡", "La base de datos ya existe")
 
     def agregar_datos(self, arts):
-        #conexion= sqlite3.connect("base_datos.db")
-        cursor=self.conexion.cursor()
-        instruction= """INSERT INTO "Articulos" ("GRUPO", "CODIGO_PRODUCTO", "DESCRIPCION", "FECHA_ALTA", "PROVEEDOR", "STOCK", "CANT_BULTOS", "COSTO", "DESCUENTO", "TOTAL_DESCUENTO", "SIN_IVA", "CON_IVA", "COSTO_UNITARIO", "UTILIDAD", "NETO", "LISTA1_UTIL", "LISTA1_NETO", "LISTA2_UTIL", "LISTA2_NETO", "LISTA3_UTIL", "LISTA3_NETO", "LISTA4_UTIL", "LISTA4_NETO", "LISTA5_UTIL", "LISTA5_NETO") 
-                        VALUES (?, NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"""
-        cursor.execute(instruction, arts)
-        self.conexion.commit()
-        self.conexion.close()
+        try:
+            conexion = sqlite3.connect("base_datos.db")
+            cursor = conexion.cursor()
+            instruction = """INSERT INTO "Articulos" ("GRUPO", "DESCRIPCION", "FECHA_ALTA", "PROVEEDOR", "STOCK", "CANT_BULTOS", "COSTO", "DESCUENTO", "TOTAL_DESCUENTO", "SIN_IVA", "CON_IVA", "COSTO_UNITARIO", "UTILIDAD", "NETO", "LISTA1_UTIL", "LISTA1_NETO", "LISTA2_UTIL", "LISTA2_NETO", "LISTA3_UTIL", "LISTA3_NETO", "LISTA4_UTIL", "LISTA4_NETO", "LISTA5_UTIL", "LISTA5_NETO")
+                            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"""
+            cursor.execute(instruction, arts)
+            conexion.commit()
+            conexion.close()
+        except Exception as e:
+             messagebox.showerror("Error", f"Error al agregar datos: {str(e)}")
 
-    '''def listar(self):
-            cursor= self.conexion.cursor()
-            instrction= "SELECT * FROM Articulos ORDER BY CODIGO"
-            cursor.execute(instrction)
-            self.conexion.close()
-            return cursor.fetchall()'''
+    def listar(self):
+        conexion = sqlite3.connect("base_datos.db")
+        cursor = conexion.cursor()
+        instruction = "SELECT CODIGO_PRODUCTO, DESCRIPCION, COSTO_UNITARIO, NETO FROM Articulos ORDER BY DESCRIPCION"
+        cursor.execute(instruction)
+        datos = cursor.fetchall()
+        conexion.close()
+        return datos
     
-'''    def borrar(self, datos):
+    def borrar(self, datos):
+        conexion = sqlite3.connect("base_datos.db")
         cursor= conexion.cursor()
         instrction= "DELETE FROM Articulos WHERE CODIGO= %s"
         cursor.execute(instrction, datos)
@@ -71,7 +77,7 @@ class CRUDarticulos:
 
     
 
-    def consultar(self, datos):
+    '''def consultar(self, datos):
         cursor= conexion.cursor()
         instruction= "SELECT CODIGO, DNI, NOMBRE, APELLIDO, N_CAMISETA FROM JUGADORES WHERE CODIGO= %s ORDER BY CODIGO ASC"
         cursor.execute(instruction, datos)

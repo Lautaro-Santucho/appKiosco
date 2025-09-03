@@ -390,7 +390,7 @@ class articulosInterfaz:
         for elementos in self.registros:
             self.treeview.delete(elementos)
         for fila in self.DataBase.listar():
-            self.treeview.insert("", 0, text=fila[0], values=(fila[1], fila[2], fila[3], fila[4]))
+            self.treeview.insert("", 0, text=fila[0], values=(fila[1], fila[2], fila[3]))
 
     def agregar_base_datos(self):
         datos = (self.datoGrupo.get(),self.datoDescripcion.get(), self.datoFechaAlta.get(), self.datoProveedor.get(), self.datoStock.get(),self.datoCantBultos.get(), self.datoCosto.get(),self.datoAgreagarDesc.get(),self.datoDesc.get(),self.datoSinIVA.get(), self.datoIVA.get(), self.datoCostoUnitario.get(), self.datoUtilidad.get(),self.datoNeto.get(), 
@@ -425,4 +425,4 @@ class articulosInterfaz:
         self.datoNetoLista5.set("")
 
 
-        #self.listarSelecc()
+        self.listarProductos()
