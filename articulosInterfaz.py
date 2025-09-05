@@ -23,6 +23,7 @@ class articulosInterfaz:
         self.botonesCRUD()
         self.lista()
         self.buscador()
+        self.listarProductos()
 
         self.ventProv.mainloop()
 
@@ -34,9 +35,9 @@ class articulosInterfaz:
         self.treeview.place(width=620)
 
         self.treeview.column("#0", width=50)
-        self.treeview.column("#1", width=350)
-        self.treeview.column("#2", width=10)
-        self.treeview.column("#3", width=10)
+        self.treeview.column("#1", width=250)
+        self.treeview.column("#2", width=50)
+        self.treeview.column("#3", width=50)
 
         self.treeview.heading("#0", text="Codigo")
         self.treeview.heading("#1", text="Descripcion")
@@ -45,6 +46,8 @@ class articulosInterfaz:
         # Scrollbar
         self.scrollbar = ttk.Scrollbar(self.treeview, orient="vertical", command=self.treeview.yview())
         self.treeview["yscrollcommand"] = self.scrollbar.set
+        # Bind selection event to populate fields
+        self.treeview.bind("<<TreeviewSelect>>", self.on_treeview_select)
 
 #---------------------visualizar datos---------------------
 
@@ -202,10 +205,18 @@ class articulosInterfaz:
         self.button1 = ttk.Button(self.labelframe1, text="Agregar", width=20, command= self.agregar_base_datos)
         self.button1.grid(column=0, row=0, padx=10, pady=10)
         self.button1.bind("<Alt-A>", self.agregar_base_datos)
-        self.button2 = ttk.Button(self.labelframe1, text="Modificar", width=20).grid(column=1, row=0, padx=10, pady=10)
-        self.button3 = ttk.Button(self.labelframe1, text="Eliminar", width=20).grid(column=2, row=0, padx=10, pady=10)
-        self.button4 = ttk.Button(self.labelframe1, text="Cancelar", width=20).grid(column=4, row=0, padx=10, pady=10)
-        self.button5 = ttk.Button(self.labelframe1, text="Grabar", width=20).grid(column=5, row=0, padx=10, pady=10)
+
+        self.button2 = ttk.Button(self.labelframe1, text="Eliminar", width=20, command= self.borrar_base_datos)
+        self.button2.grid(column=1, row=0, padx=10, pady=10)
+
+        self.button3 = ttk.Button(self.labelframe1, text="Modificar", width=20)
+        self.button3.grid(column=2, row=0, padx=10, pady=10)
+
+        self.button4 = ttk.Button(self.labelframe1, text="Cancelar", width=20)
+        self.button4.grid(column=3, row=0, padx=10, pady=10)
+
+        self.button5 = ttk.Button(self.labelframe1, text="Grabar", width=20)
+        self.button5.grid(column=4, row=0, padx=10, pady=10)
 
 #---------------------Fin botones CRUD---------------------
 
@@ -379,10 +390,10 @@ class articulosInterfaz:
         #Button
         self.button = ttk.Button(self.labelframe1, text="Buscar", width=20).place(x=115, y=10, width=150, height=40)
 
-#---------------------Fin crear buscador---------------------  
+#---------------------Fin crear buscador---------------------
 
-
-
+    def on_treeview_select(self, event):
+        self.consultar_base_datos()
 
     # Pasaje de datos para instrucciones SQL
     def listarProductos(self):
@@ -424,5 +435,76 @@ class articulosInterfaz:
         self.datoUtilidadLista5.set("")
         self.datoNetoLista5.set("")
 
+        self.listarProductos()
+
+    def borrar_base_datos(self):
+        datos = (self.treeview.item(self.treeview.selection())["text"],)
+        self.DataBase.borrar(datos)
 
         self.listarProductos()
+
+    def actualizar_base_datos(self):
+        datos = (self.datoGrupo.get(),self.datoDescripcion.get(), self.datoFechaAlta.get(), self.datoProveedor.get(), self.datoStock.get(),self.datoCantBultos.get(), self.datoCosto.get(),self.datoAgreagarDesc.get(),self.datoDesc.get(),self.datoSinIVA.get(), self.datoIVA.get(), self.datoCostoUnitario.get(), self.datoUtilidad.get(),self.datoNeto.get(), 
+                 self.datoUtilidadLista1.get(), self.datoNetoLista1.get(), self.datoUtilidadLista2.get(),self.datoNetoLista2.get(), self.datoUtilidadLista3.get(), self.datoNetoLista3.get(),self.datoUtilidadLista4.get(), self.datoNetoLista4.get(), self.datoUtilidadLista5.get(), self.datoNetoLista5.get())
+        
+        self.DataBase.consultar(datos)
+
+        self.datoGrupo.set("") 
+        self.datoCodigoProd.set("")
+        self.datoDescripcion.set("")
+        self.datoFechaAlta.set("")
+        self.datoProveedor.set("")
+        self.datoStock.set("")
+        self.datoCantBultos.set("")
+        self.datoCosto.set("")
+        self.datoAgreagarDesc.set("")
+        self.datoDesc.set("")
+        self.datoSinIVA.set("")
+        self.datoIVA.set("")
+        self.datoCostoUnitario.set("")
+        self.datoUtilidad.set("")
+        self.datoNeto.set("")
+        self.datoUtilidadLista1.set("")
+        self.datoNetoLista1.set("")
+        self.datoUtilidadLista2.set("")
+        self.datoNetoLista2.set("")
+        self.datoUtilidadLista3.set("")
+        self.datoNetoLista3.set("")
+        self.datoUtilidadLista4.set("")
+        self.datoNetoLista4.set("")
+        self.datoUtilidadLista5.set("")
+        self.datoNetoLista5.set("")
+
+        self.listarProductos()
+
+    def consultar_base_datos(self):
+        datos = (self.treeview.item(self.treeview.selection())["text"],)
+
+        data = self.DataBase.consultar(datos)
+        if data:
+            fila = data[0]
+            self.datoGrupo.set(fila[0])
+            self.datoCodigoProd.set(datos[0])
+            self.datoDescripcion.set(fila[1])
+            self.datoFechaAlta.set(fila[2])
+            self.datoProveedor.set(fila[3])
+            self.datoStock.set(fila[4])
+            self.datoCantBultos.set(fila[5])
+            self.datoCosto.set(fila[6])
+            self.datoAgreagarDesc.set(fila[7])
+            self.datoDesc.set(fila[8])
+            self.datoSinIVA.set(fila[9])
+            self.datoIVA.set(fila[10])
+            self.datoCostoUnitario.set(fila[11])
+            self.datoUtilidad.set(fila[12])
+            self.datoNeto.set(fila[13])
+            self.datoUtilidadLista1.set(fila[14])
+            self.datoNetoLista1.set(fila[15])
+            self.datoUtilidadLista2.set(fila[16])
+            self.datoNetoLista2.set(fila[17])
+            self.datoUtilidadLista3.set(fila[18])
+            self.datoNetoLista3.set(fila[19])
+            self.datoUtilidadLista4.set(fila[20])
+            self.datoNetoLista4.set(fila[21])
+            self.datoUtilidadLista5.set(fila[22])
+            self.datoNetoLista5.set(fila[23])
