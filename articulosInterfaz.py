@@ -11,6 +11,7 @@ class articulosInterfaz:
         self.ventProv.title("Ventana de productos")
         self.ventProv.geometry("940x680")
         self.ventProv.resizable(width=0, height=0)
+        self.ventProv.focus()
         self.DataBase= baseDatosApp.CRUDarticulos()
 
         self.ventProv.rowconfigure(0, weight=1)
@@ -46,7 +47,7 @@ class articulosInterfaz:
         # Scrollbar
         self.scrollbar = ttk.Scrollbar(self.treeview, orient="vertical", command=self.treeview.yview())
         self.treeview["yscrollcommand"] = self.scrollbar.set
-        # Bind selection event to populate fields
+        # Selección para rellenar campos
         self.treeview.bind("<<TreeviewSelect>>", self.on_treeview_select)
 
 #---------------------visualizar datos---------------------
@@ -80,7 +81,9 @@ class articulosInterfaz:
 
         # Entry
         self.datoGrupo = tk.StringVar()
-        self.entryGrupo = ttk.Entry(self.labelframe1, textvariable=self.datoGrupo).place(x=110, y=10, width=100, height=25)
+        self.entryGrupo = ttk.Entry(self.labelframe1, textvariable=self.datoGrupo)
+        self.entryGrupo.place(x=110, y=10, width=100, height=25)
+
         
         self.datoCodigoProd = tk.StringVar()
         self.entryCodigoProd = ttk.Entry(self.labelframe1, textvariable=self.datoCodigoProd, state="readonly").place(x=110, y=48, width=100, height=25)
@@ -148,25 +151,27 @@ class articulosInterfaz:
         self.costo= float(self.datoCosto.get())
         self.cantBultos= float(self.datoCantBultos.get())
         self.calculoUnit= (self.costo/self.cantBultos)
+        self.calculiUnitRound= self.calculoUnit.__round__(2)
 
-        self.datoCostoUnitario.set(self.calculoUnit)
+        self.datoCostoUnitario.set(self.calculiUnitRound)
 
     #Calcular neto
     def calculoUtilidad(self, event):
         self.utilidad= float(self.datoUtilidad.get())
-        #self.calculoNeto= self.calculoUnit * (self.utilidad + 100)/100
-        self.calculaUtilidad= self.utilidad * (self.calculoUnit/100)
-        self.calculoNeto= self.calculoUnit + self.calculaUtilidad
+        self.calculaUtilidad= self.utilidad * (self.calculiUnitRound/100)
+        self.calculoNeto= self.calculiUnitRound + self.calculaUtilidad
+        self.calculoNetoRound= self.calculoNeto.__round__(2)
 
-        self.datoNeto.set(self.calculoNeto)
+        self.datoNeto.set(self.calculoNetoRound)
 
     #Calcular IVA
     def calculoIVA(self, event):
         self.sinIVA= float(self.datoSinIVA.get())
         self.IVA= self.sinIVA * 1.21
+        self.IVARound= self.IVA.__round__(2)
 
-        self.datoIVA.set(self.IVA)
-        self.datoCosto.set(self.IVA)
+        self.datoIVA.set(self.IVARound)
+        self.datoCosto.set(self.IVARound)
 
     #Calcular descuento
     def calculoDescuento(self, event):
@@ -204,19 +209,28 @@ class articulosInterfaz:
         #Button
         self.button1 = ttk.Button(self.labelframe1, text="Agregar", width=20, command= self.agregar_base_datos)
         self.button1.grid(column=0, row=0, padx=10, pady=10)
-        self.button1.bind("<Alt-A>", self.agregar_base_datos)
+        self.ventProv.bind("<Alt-a>", self.agregar_base_datos)
+        self.ventProv.bind("<Alt-A>", self.agregar_base_datos)
 
         self.button2 = ttk.Button(self.labelframe1, text="Eliminar", width=20, command= self.borrar_base_datos)
         self.button2.grid(column=1, row=0, padx=10, pady=10)
+        self.ventProv.bind("<Alt-e>", self.borrar_base_datos)
+        self.ventProv.bind("<Alt-E>", self.borrar_base_datos)
 
-        self.button3 = ttk.Button(self.labelframe1, text="Modificar", width=20)
+        self.button3 = ttk.Button(self.labelframe1, text="Modificar", width=20, command= self.actualizar_base_datos)
         self.button3.grid(column=2, row=0, padx=10, pady=10)
+        self.ventProv.bind("<Alt-m>", self.actualizar_base_datos)
+        self.ventProv.bind("<Alt-M>", self.actualizar_base_datos)
 
-        self.button4 = ttk.Button(self.labelframe1, text="Cancelar", width=20)
+        self.button4 = ttk.Button(self.labelframe1, text="Cancelar", width=20, command= self.cancelar_operacion)
         self.button4.grid(column=3, row=0, padx=10, pady=10)
+        self.ventProv.bind("<Alt-c>", self.cancelar_operacion)
+        self.ventProv.bind("<Alt-C>", self.cancelar_operacion)
 
-        self.button5 = ttk.Button(self.labelframe1, text="Grabar", width=20)
+        self.button5 = ttk.Button(self.labelframe1, text="Grabar", width=20, command= self.grabar_base_datos)
         self.button5.grid(column=4, row=0, padx=10, pady=10)
+        self.ventProv.bind("<Alt-g>", self.grabar_base_datos)
+        self.ventProv.bind("<Alt-G>", self.grabar_base_datos)
 
 #---------------------Fin botones CRUD---------------------
 
@@ -392,10 +406,10 @@ class articulosInterfaz:
 
 #---------------------Fin crear buscador---------------------
 
+#---------------------Pasaje de datos para instrucciones SQL---------------------
     def on_treeview_select(self, event):
         self.consultar_base_datos()
 
-    # Pasaje de datos para instrucciones SQL
     def listarProductos(self):
         self.registros = self.treeview.get_children()
         for elementos in self.registros:
@@ -403,7 +417,36 @@ class articulosInterfaz:
         for fila in self.DataBase.listar():
             self.treeview.insert("", 0, text=fila[0], values=(fila[1], fila[2], fila[3]))
 
-    def agregar_base_datos(self):
+    def agregar_base_datos(self, event= None):
+        self.datoGrupo.set("") 
+        self.datoCodigoProd.set("")
+        self.datoDescripcion.set("")
+        self.datoFechaAlta.set("")
+        self.datoProveedor.set("")
+        self.datoStock.set("")
+        self.datoCantBultos.set("")
+        self.datoCosto.set("")
+        self.datoAgreagarDesc.set("")
+        self.datoDesc.set("")
+        self.datoSinIVA.set("")
+        self.datoIVA.set("")
+        self.datoCostoUnitario.set("")
+        self.datoUtilidad.set("")
+        self.datoNeto.set("")
+        self.datoUtilidadLista1.set("")
+        self.datoNetoLista1.set("")
+        self.datoUtilidadLista2.set("")
+        self.datoNetoLista2.set("")
+        self.datoUtilidadLista3.set("")
+        self.datoNetoLista3.set("")
+        self.datoUtilidadLista4.set("")
+        self.datoNetoLista4.set("")
+        self.datoUtilidadLista5.set("")
+        self.datoNetoLista5.set("")
+
+        self.entryGrupo.focus_set()
+
+    def grabar_base_datos(self, event= None):
         datos = (self.datoGrupo.get(),self.datoDescripcion.get(), self.datoFechaAlta.get(), self.datoProveedor.get(), self.datoStock.get(),self.datoCantBultos.get(), self.datoCosto.get(),self.datoAgreagarDesc.get(),self.datoDesc.get(),self.datoSinIVA.get(), self.datoIVA.get(), self.datoCostoUnitario.get(), self.datoUtilidad.get(),self.datoNeto.get(), 
                  self.datoUtilidadLista1.get(), self.datoNetoLista1.get(), self.datoUtilidadLista2.get(),self.datoNetoLista2.get(), self.datoUtilidadLista3.get(), self.datoNetoLista3.get(),self.datoUtilidadLista4.get(), self.datoNetoLista4.get(), self.datoUtilidadLista5.get(), self.datoNetoLista5.get())
         
@@ -437,17 +480,17 @@ class articulosInterfaz:
 
         self.listarProductos()
 
-    def borrar_base_datos(self):
+    def borrar_base_datos(self, event= None):
         datos = (self.treeview.item(self.treeview.selection())["text"],)
         self.DataBase.borrar(datos)
 
         self.listarProductos()
 
-    def actualizar_base_datos(self):
-        datos = (self.datoGrupo.get(),self.datoDescripcion.get(), self.datoFechaAlta.get(), self.datoProveedor.get(), self.datoStock.get(),self.datoCantBultos.get(), self.datoCosto.get(),self.datoAgreagarDesc.get(),self.datoDesc.get(),self.datoSinIVA.get(), self.datoIVA.get(), self.datoCostoUnitario.get(), self.datoUtilidad.get(),self.datoNeto.get(), 
-                 self.datoUtilidadLista1.get(), self.datoNetoLista1.get(), self.datoUtilidadLista2.get(),self.datoNetoLista2.get(), self.datoUtilidadLista3.get(), self.datoNetoLista3.get(),self.datoUtilidadLista4.get(), self.datoNetoLista4.get(), self.datoUtilidadLista5.get(), self.datoNetoLista5.get())
-        
-        self.DataBase.consultar(datos)
+    def actualizar_base_datos(self, event= None):
+        datos = (self.datoGrupo.get(), self.datoDescripcion.get(), self.datoFechaAlta.get(), self.datoProveedor.get(), self.datoStock.get(),self.datoCantBultos.get(), self.datoCosto.get(),self.datoAgreagarDesc.get(),self.datoDesc.get(),self.datoSinIVA.get(), self.datoIVA.get(), self.datoCostoUnitario.get(), self.datoUtilidad.get(),self.datoNeto.get(),
+                 self.datoUtilidadLista1.get(), self.datoNetoLista1.get(), self.datoUtilidadLista2.get(),self.datoNetoLista2.get(), self.datoUtilidadLista3.get(), self.datoNetoLista3.get(),self.datoUtilidadLista4.get(), self.datoNetoLista4.get(), self.datoUtilidadLista5.get(), self.datoNetoLista5.get(), self.datoCodigoProd.get())
+
+        self.DataBase.actualizar(datos)
 
         self.datoGrupo.set("") 
         self.datoCodigoProd.set("")
@@ -476,6 +519,33 @@ class articulosInterfaz:
         self.datoNetoLista5.set("")
 
         self.listarProductos()
+
+    def cancelar_operacion(self, event= None):
+        self.datoGrupo.set("") 
+        self.datoCodigoProd.set("")
+        self.datoDescripcion.set("")
+        self.datoFechaAlta.set("")
+        self.datoProveedor.set("")
+        self.datoStock.set("")
+        self.datoCantBultos.set("")
+        self.datoCosto.set("")
+        self.datoAgreagarDesc.set("")
+        self.datoDesc.set("")
+        self.datoSinIVA.set("")
+        self.datoIVA.set("")
+        self.datoCostoUnitario.set("")
+        self.datoUtilidad.set("")
+        self.datoNeto.set("")
+        self.datoUtilidadLista1.set("")
+        self.datoNetoLista1.set("")
+        self.datoUtilidadLista2.set("")
+        self.datoNetoLista2.set("")
+        self.datoUtilidadLista3.set("")
+        self.datoNetoLista3.set("")
+        self.datoUtilidadLista4.set("")
+        self.datoNetoLista4.set("")
+        self.datoUtilidadLista5.set("")
+        self.datoNetoLista5.set("")
 
     def consultar_base_datos(self):
         datos = (self.treeview.item(self.treeview.selection())["text"],)
@@ -508,3 +578,4 @@ class articulosInterfaz:
             self.datoNetoLista4.set(fila[21])
             self.datoUtilidadLista5.set(fila[22])
             self.datoNetoLista5.set(fila[23])
+

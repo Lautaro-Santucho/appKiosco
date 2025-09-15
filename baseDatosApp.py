@@ -45,13 +45,13 @@ class CRUDarticulos:
         except:
             messagebox.showwarning("!Advertencia¡", "La base de datos ya existe")
 
-    def agregar_datos(self, arts):
+    def agregar_datos(self, datos):
         try:
             conexion = sqlite3.connect("base_datos.db")
             cursor = conexion.cursor()
             instruction = """INSERT INTO "Articulos" ("GRUPO", "DESCRIPCION", "FECHA_ALTA", "PROVEEDOR", "STOCK", "CANT_BULTOS", "COSTO", "DESCUENTO", "TOTAL_DESCUENTO", "SIN_IVA", "CON_IVA", "COSTO_UNITARIO", "UTILIDAD", "NETO", "LISTA1_UTIL", "LISTA1_NETO", "LISTA2_UTIL", "LISTA2_NETO", "LISTA3_UTIL", "LISTA3_NETO", "LISTA4_UTIL", "LISTA4_NETO", "LISTA5_UTIL", "LISTA5_NETO")
                             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"""
-            cursor.execute(instruction, arts)
+            cursor.execute(instruction, datos)
             conexion.commit()
             conexion.close()
         except Exception as e:
@@ -84,14 +84,15 @@ class CRUDarticulos:
         return data
 
 
-    '''def actualizar(self, datos):
+    def actualizar(self, datos):
+        conexion= sqlite3.connect("base_datos.db")
         cursor= conexion.cursor()
-        instruccion= "UPDATE Articulos SET DNI= %s, NOMBRE= %s, APELLIDO= %s, N_CAMISETA= %s WHERE CODIGO= %s"
+        instruccion= "UPDATE Articulos SET GRUPO= ?, DESCRIPCION= ?, FECHA_ALTA= ?, PROVEEDOR= ?, STOCK= ?, CANT_BULTOS= ?, COSTO= ?, DESCUENTO= ?, TOTAL_DESCUENTO= ?, SIN_IVA= ?, CON_IVA= ?, COSTO_UNITARIO= ?, UTILIDAD= ?, NETO= ?, LISTA1_UTIL= ?, LISTA1_NETO= ?, LISTA2_UTIL= ?, LISTA2_NETO= ?, LISTA3_UTIL= ?, LISTA3_NETO= ?, LISTA4_UTIL= ?, LISTA4_NETO= ?, LISTA5_UTIL= ?, LISTA5_NETO= ? WHERE CODIGO_PRODUCTO= ?"
         cursor.execute(instruccion, datos)
         conexion.commit()
         conexion.close()
 
-    def imprimir(self):
+    '''def imprimir(self):
         cursor=conexion.cursor()
         instruction= "SELECT * FROM Articulos ORDER BY CODIGO ASC"
         cursor.execute(instruction)
